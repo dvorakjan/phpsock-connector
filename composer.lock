@@ -1,0 +1,41 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "04791828e471983e8597a7014d9a0adf",
+    "packages": [
+        {
+            "name": "erasys/dnode-php-sync-client",
+            "version": "master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erasys/dnode-php-sync-client.git",
+                "reference": "672c67a807eea00bc6140e27d9c939c40b7e9750"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "DnodeSyncClient.php"
+                ]
+            },
+            "time": "2012-11-06 11:45:07"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "erasys/dnode-php-sync-client": 20
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
+}
