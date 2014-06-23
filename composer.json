@@ -26,6 +26,6 @@
         }
     ],
     "require": {
-        "erasys/dnode-php-sync-client": "dev-master#672c67a807eea00bc6140e27d9c939c40b7e9750"
+        "erasys/dnode-php-sync-client": "dev-master#672c67a807eea00bc6140e27d9c939c40b7e9750@dev"
     }
 }
