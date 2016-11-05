@@ -32,6 +32,11 @@ class Connector
         $this->_dnode = new \DNode\DNode($this->_loop);
     }
 
+    /**
+     * @param string        $method
+     * @param array         $params
+     * @param callable|null $callback
+     */
     public function call($method, $params = [], $callback = null)
     {
         $this->_dnode->connect($this->_host, $this->_port, function ($remote, $connection) use ($method, $params, $callback) {
@@ -47,16 +52,28 @@ class Connector
         $this->_loop->run();
     }
 
+    /**
+     * @param string $clientAlias
+     * @param string $procedure
+     * @param array  $params
+     */
     public function callClient($clientAlias, $procedure, $params = [])
     {
         return $this->call('callClient', [$clientAlias, $procedure, $params]);
     }
 
+    /**
+     * @param string $topic
+     * @param mixed  $message
+     */
     public function publish($topic, $message)
     {
         return $this->call('publish', [$topic, $message]);
     }
 
+    /**
+     * @param callable $callback
+     */
     public function getOnlineClients($callback)
     {
         return $this->call('getOnlineClients', [], function ($list = []) use ($callback) {
