@@ -10,5 +10,8 @@
     ],
     "require": {
         "dnode/dnode": "^0.2.0"
+    },
+    "autoload": {
+        "files": ["src/PHPsock/Connector.php"]
     }
 }
