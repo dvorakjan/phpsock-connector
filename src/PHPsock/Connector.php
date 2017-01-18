@@ -37,29 +37,34 @@ class Connector
      * @param array         $params
      * @param callable|null $callback
      */
-    public function call($method, $params = [], $callback = null)
+    public function callMethod($method, $params = [], $callback = null)
     {
         $this->_dnode->connect($this->_host, $this->_port, function ($remote, $connection) use ($method, $params, $callback) {
             call_user_func_array([$remote, $method], array_merge($params, [
                 function ($return = []) use ($connection, $callback) {
                     if (is_callable($callback)) {
                         $callback($return);
+                        $connection->end();
                     }
-                    $connection->end();
                 }
             ]));
+
+            // in case of no callback end connection immediately
+            if (!is_callable($callback)) {
+                $connection->end();
+            }
         });
         $this->_loop->run();
     }
 
     /**
-     * @param string $clientAlias
+     * @param array  $clientAliases
      * @param string $procedure
      * @param array  $params
      */
-    public function callClient($clientAlias, $procedure, $params = [])
+    public function call($clientAliases, $procedure, $params = [])
     {
-        return $this->call('callClient', [$clientAlias, $procedure, $params]);
+        return $this->callMethod('callClients', [$clientAliases, $procedure, $params]);
     }
 
     /**
@@ -68,7 +73,7 @@ class Connector
      */
     public function publish($topic, $message)
     {
-        return $this->call('publish', [$topic, $message]);
+        return $this->callMethod('publish', [$topic, $message]);
     }
 
     /**
@@ -76,7 +81,7 @@ class Connector
      */
     public function getOnlineClients($callback)
     {
-        return $this->call('getOnlineClients', [], function ($list = []) use ($callback) {
+        return $this->callMethod('getOnlineClients', [], function ($list = []) use ($callback) {
             $callback($list);
         });
     }
